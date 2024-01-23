@@ -42,8 +42,7 @@ Route::get('/pendaftaran', function () {
 
 Route::prefix("admin")->group(function () {
     route::get('dashboard', [AdminController::class, 'dashboard']);
+    Auth::routes();
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
-
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
