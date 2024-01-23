@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,3 +43,7 @@ Route::get('/pendaftaran', function () {
 Route::prefix("admin")->group(function () {
     route::get('dashboard', [AdminController::class, 'dashboard']);
 });
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
