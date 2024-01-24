@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('public.home');
+})->name('home');
 
 Route::get('/home', function () {
     return view('public.home');
@@ -41,8 +41,12 @@ Route::get('/pendaftaran', function () {
 });
 
 Route::prefix("admin")->group(function () {
-    route::get('dashboard', [AdminController::class, 'dashboard']);
     Auth::routes();
-
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::middleware("auth")->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+        Route::get('/students', [AdminController::class, 'students'])->name('students');
+        Route::get('/books', [AdminController::class, 'books'])->name('books');
+        Route::get('/add-news', [AdminController::class, 'addNews'])->name('add-news');
+        Route::get('/add-image-news', [AdminController::class,'addImageNews'])->name('add-image-news');
+    });
 });
